@@ -1,5 +1,8 @@
+import pytest
 from playwright.sync_api import sync_playwright, expect
 
+@pytest.mark.courses
+@pytest.mark.regression
 def test_empty_courses_list():
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
@@ -37,6 +40,7 @@ def test_empty_courses_list():
         # Проверить наличие и текст блока "There is no results"
         no_results_title = page.get_by_test_id('courses-list-empty-view-title-text')
         expect(no_results_title).to_be_attached()
+
         expect(no_results_title).to_have_text('There is no results')
 
         # Проверить наличие и видимость иконки пустого блока
